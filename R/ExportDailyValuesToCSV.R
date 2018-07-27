@@ -30,6 +30,15 @@
 ExportDailyValuesToCSV <- function(dailyValues, 
                                    fileName,
                                    metric = TRUE){
+
+  
+  #sort through the codes for data types and make metric conversions
+  if(attr(dailyValues, "code") == "00060"){ # discharge
+    dataType = "Discharge"
+    if(metric){
+      dailyValues$val <- dailyValues$val * 0.0283168 # cubic feet to cubic meter conversion
+    }
+  }  
   
   # drop irrelevant columns
   within(dailyValues, rm(staid))
@@ -37,13 +46,7 @@ ExportDailyValuesToCSV <- function(dailyValues,
   # reorder columns
   dailyValues <- dailyValues[c("dates", "val", "qualcode")]
   
-  #sort through the codes and make metric conversions
-  if(attr(dailyValues, "code") == "00060"){ # discharge
-    dataType = "Discharge"
-    if(metric){
-      dailyValues$val <- dailyValues$val * 0.0283168 # cubic feet to cubic meter conversion
-    }
-  }
+
   
   # rename columns
   colnames(dailyValues)[colnames(dailyValues)=="val"] <- dataType
