@@ -9,6 +9,7 @@ This package borrows heavily from other sources including:
 
 * vignettes associated with the waterData package.
 * USGS information on the the dataRetrieval package
+* leaflet for making plots
 
 ### Installing waterDataSupport
 
@@ -49,3 +50,7 @@ This function exports daily values imported by the waterData package to csv form
 #### ExportMonthlyValuesToCSV(monthlyValues, fileName, metric = TRUE)
 
 This function exports the monthly values from the readNWISstat function in the dataRetrieval package to csv.
+
+#### getUSGSHUC(siteID, plotmap = TRUE, zoomFactor = 10)
+
+This function can get the hydraullic unit code of the watershed a stream guage is sitting on given the siteID of the stream guage. This function can produce a map with the informaiton
