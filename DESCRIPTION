@@ -20,4 +20,7 @@ Imports: waterData,
     mapdata,
     maptools,
     ggmap,
-    dataRetrieval
+    dataRetrieval,
+    rgdal,
+    leaflet,
+    raster
