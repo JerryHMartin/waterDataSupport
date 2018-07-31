@@ -4,6 +4,9 @@
 #' given a USGS monitoring station ID.
 #' 
 #'
+#' Much of this code was drawn from this source.
+#' http://cyberhelp.sesync.org/leaflet-in-R-lesson/course/archive.html
+#'
 #' @param siteID the USGS site identified for stream flow analysis
 #' @keywords USGS
 #' @examples
@@ -38,7 +41,11 @@ getUSGSHUC <- function(siteID, plotmap = TRUE, zoomFactor = 10){
     
   if(plotmap == TRUE){
     
-    watershedOfInterest <-watershedInfo[watershedInfo$HUC_CODE == HUCCode,]
+    nhd_wms_url <- 
+      "https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WmsServer"
+    
+    watershedOfInterest <- 
+      watershedInfo[watershedInfo$HUC_CODE == HUCCode,]
     
     map <- leaflet()
     map <- addProviderTiles(map, providers$OpenStreetMap)
