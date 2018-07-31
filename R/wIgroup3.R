@@ -42,4 +42,4 @@
 #'   ...
 #' }
 #' @source \url{https://nhd.usgs.gov/wbd.html}
-"watershedInfo"
+"wIgroup3"
