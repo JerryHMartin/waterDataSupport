@@ -13,6 +13,10 @@ getUSGSHUC(siteID, plotmap = TRUE, zoomFactor = 10)
 This function retrieves information on the hydraullic unit code 
 given a USGS monitoring station ID.
 }
+\details{
+Much of this code was drawn from this source.
+http://cyberhelp.sesync.org/leaflet-in-R-lesson/course/archive.html
+}
 \examples{
 
 getUSGSHUC("02131000")
