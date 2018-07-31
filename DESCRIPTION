@@ -23,4 +23,5 @@ Imports: waterData,
     dataRetrieval,
     rgdal,
     leaflet,
-    raster
+    raster,
+    rnoaa
