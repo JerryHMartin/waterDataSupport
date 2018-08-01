@@ -12,7 +12,8 @@
 #' @param zoomFactor the zoom factor of the output plot
 #' @param limitToWatershed only pull datapoints on the watershed
 #' @param getElevations retrieve elevations of datapoints
-#' @param leafletmap pass a leaflet map arguements
+#' @param leafletmap pass a leaflet map arguements, note the output changes to a 
+#' list if this parameter is invoked
 #' @keywords USGS NOAA precipitation mapping
 #' @examples
 #'
@@ -190,7 +191,12 @@ getNOAAGuages <- function(siteID,
     if (is.null(leafletmap)) {print(map)}
   }
   
+  if (is.null(leafletmap)){
+    return(outputValue)
+  } else {
+    return(list(output = outputValue,
+                leafletmap = map))
+  }
   
-  return(outputValue)
   
 }
