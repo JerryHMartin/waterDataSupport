@@ -23,7 +23,8 @@ getNOAAGuages <- function(siteID,
                           zoomFactor = 10, 
                           limitToWatershed = TRUE,
                           #limitToHigherelevations = TRUE,
-                          getElevations = TRUE){
+                          getElevations = TRUE,
+                         leafletmap = NULL){
   
   require(waterData, quietly = TRUE)
   require(sp, quietly = TRUE)
@@ -155,8 +156,12 @@ getNOAAGuages <- function(siteID,
     iconPrecipitationStation <- makeAwesomeIcon(icon = 'tint', 
                                                 markerColor = 'blue', 
                                                 iconColor = 'black')
+    if (is.null(leafletmap)){
+         map <- leaflet()
+      } else {
+         map <- leafletmap
+      }
     
-    map <- leaflet()
     map <- addProviderTiles(map, providers$OpenStreetMap)
     map <- setView(map,
                    lng = stationInfo$lng, 
