@@ -10,7 +10,10 @@
 #' @param siteID the USGS site identified for stream flow analysis
 #' @param plotmap TRUE if output plot is desired
 #' @param zoomFactor the zoom factor of the output plot
-#' @keywords USGS
+#' @param limitToWatershed only pull datapoints on the watershed
+#' @param getElevations retrieve elevations of datapoints
+#' @param leafletmap pass a leaflet map arguements
+#' @keywords USGS NOAA precipitation mapping
 #' @examples
 #'
 #' getNOAAGuages("02131000")
@@ -24,7 +27,7 @@ getNOAAGuages <- function(siteID,
                           limitToWatershed = TRUE,
                           #limitToHigherelevations = TRUE,
                           getElevations = TRUE,
-                         leafletmap = NULL){
+                          leafletmap = NULL){
   
   require(waterData, quietly = TRUE)
   require(sp, quietly = TRUE)
@@ -52,7 +55,7 @@ getNOAAGuages <- function(siteID,
   watershedInfo <- rbind(wIgroup1, wIgroup2, wIgroup3)
   
   stationInfo <- siteInfo(siteID) # get station information
- 
+  
   pointUSGSStation <- spatialPointsLatLng(stationInfo$lat, 
                                           stationInfo$lng,
                                           watershedInfo)
@@ -94,15 +97,15 @@ getNOAAGuages <- function(siteID,
     nearby_NOAA_stations[[HUCName]]$latitude, 
     nearby_NOAA_stations[[HUCName]]$longitude, 
     proj4stringAttributes = watershedOfInterest)
-
+  
   # see if NOAA points are on watershed
-
+  
   pointsWithinUSGSWatershed <- over(pointsNOAAStations, watershedOfInterest)
   ispointWithinUSGSWatershed <- !sapply(pointsWithinUSGSWatershed$HUC_CODE, is.na)
-
+  
   NOAA_stations_within_watershed <- 
     as.data.frame(nearby_NOAA_stations[[HUCName]])[ispointWithinUSGSWatershed,]
-    
+  
   pointsNOAAStationsWatershed <- spatialPointsLatLng(
     NOAA_stations_within_watershed$latitude, 
     NOAA_stations_within_watershed$longitude, 
@@ -128,8 +131,8 @@ getNOAAGuages <- function(siteID,
     }
     outputValue$inWatershed <- ispointWithinUSGSWatershed
   }
- 
-   
+  
+  
   # if (limitToHigherelevations){
   # 
   #   stationElevation <- get_elev_point(pointUSGSStation, src = "epqs")
@@ -140,7 +143,7 @@ getNOAAGuages <- function(siteID,
   # }
   
   
-
+  
   
   if(plotmap == TRUE){
     
@@ -157,10 +160,10 @@ getNOAAGuages <- function(siteID,
                                                 markerColor = 'blue', 
                                                 iconColor = 'black')
     if (is.null(leafletmap)){
-         map <- leaflet()
-      } else {
-         map <- leafletmap
-      }
+      map <- leaflet()
+    } else {
+      map <- leafletmap
+    }
     
     map <- addProviderTiles(map, providers$OpenStreetMap)
     map <- setView(map,
@@ -184,7 +187,7 @@ getNOAAGuages <- function(siteID,
                              popup = paste("NOAA Precipitation Station", 
                                            outputValue$name),
                              icon = iconPrecipitationStation)    
-    print(map)
+    if (is.null(leafletmap)) {print(map)}
   }
   
   
