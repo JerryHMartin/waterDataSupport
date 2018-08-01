@@ -5,7 +5,7 @@
 \title{getNOAAGuages}
 \usage{
 getNOAAGuages(siteID, plotmap = TRUE, zoomFactor = 10,
-  limitToWatershed = TRUE, getElevations = TRUE)
+  limitToWatershed = TRUE, getElevations = TRUE, leafletmap = NULL)
 }
 \arguments{
 \item{siteID}{the USGS site identified for stream flow analysis}
@@ -13,6 +13,12 @@ getNOAAGuages(siteID, plotmap = TRUE, zoomFactor = 10,
 \item{plotmap}{TRUE if output plot is desired}
 
 \item{zoomFactor}{the zoom factor of the output plot}
+
+\item{limitToWatershed}{only pull datapoints on the watershed}
+
+\item{getElevations}{retrieve elevations of datapoints}
+
+\item{leafletmap}{pass a leaflet map arguements}
 }
 \description{
 This function retrieves information on the hydraullic unit code 
@@ -27,4 +33,7 @@ http://cyberhelp.sesync.org/leaflet-in-R-lesson/course/archive.html
 getNOAAGuages("02131000")
 
 }
+\keyword{NOAA}
 \keyword{USGS}
+\keyword{mapping}
+\keyword{precipitation}
