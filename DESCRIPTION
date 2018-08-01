@@ -1,11 +1,11 @@
 Package: waterDataSupport
 Type: Package
 Title: Additional Functions for waterData
-Version: 0.1.0
+Version: 0.1.1
 Author: Jerry Martin
 Maintainer: Jerry Martin <jerry.h.martin@gmail.com>
 Description: This package is intended to provide supporting 
-    functions to the waterData package put out by the USGS.
+    functions for hydrologic modeling.
     This package is intended for information only.
 License: GPL ver 2
 Encoding: UTF-8
