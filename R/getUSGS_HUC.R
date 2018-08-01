@@ -39,19 +39,6 @@ getUSGSHUC <- function(siteID, plotmap = TRUE, zoomFactor = 10){
   HUCCode <- as.character(result$HUC_CODE) #Hydraullic Unit Code
   HUCName <- as.character(result$HUC_NAME) #Hydraullic Unit Code
     
-  
-  watershedForNOAA <- data.frame(id = HUCName, 
-                                 latitude = stationInfo$lat, 
-                                 longitude = stationInfo$lng)
-  
-  nearby_NOAA_stations <-  meteo_nearby_stations(
-    lat_lon_df = watershedForNOAA, 
-    station_data = NOAAstations,
-    radius = 20, 
-    var = c("PRCP", "TMAX", "TMIN", "TAVG"),
-    year_min = 1800, year_max = 2018)
-  
-  
   if(plotmap == TRUE){
     
     nhd_wms_url <- 
@@ -75,10 +62,6 @@ getUSGSHUC <- function(siteID, plotmap = TRUE, zoomFactor = 10){
                       lng = stationInfo$lng, 
                       lat = stationInfo$lat, 
                       popup = HUCName)
-    map <- addMarkers(map,
-                      lng = nearby_NOAA_stations[[HUCName]]$longitude, 
-                      lat = nearby_NOAA_stations[[HUCName]]$latitude, 
-                      popup = nearby_NOAA_stations[[HUCName]]$name)    
     print(map)
   }
   
