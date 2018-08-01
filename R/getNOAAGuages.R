@@ -31,6 +31,7 @@ getNOAAGuages <- function(siteID,
   require(leaflet, quietly = TRUE)
   require(geosphere, quietly = TRUE)
   require(elevatr, quietly = TRUE)
+  require(rnoaa, quietly = TRUE)
   
   spatialPointsLatLng <- function(latitude, 
                                   longitude, 
