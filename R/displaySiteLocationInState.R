@@ -15,11 +15,10 @@
 
 displaySiteLocationInState <- function(siteID){
   
-  require(waterData, quietly = TRUE)
-  require(sp, quietly = TRUE)
-  require(maps, quietly = TRUE)
-  require(mapdata, quietly = TRUE)
-  require(maptools, quietly = TRUE)
+  library(sp)
+  library(maps)
+  library(mapdata)
+  library(maptools)
   
   latlong2state <- function(pointsDF) {
     # This function is adapted from
