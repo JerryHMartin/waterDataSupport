@@ -66,8 +66,9 @@ mapWatershed <- function(watershedPolygon,
   watershedMap <- addAwesomeMarkers(watershedMap,
                                     lng = USGSstationLongitude, 
                                     lat = USGSstationLatitude, 
-                                    popup = paste("USGS Discharge Station", 
-                                                  USGSStationName),
+                                    popup = paste(1:length(NOAAStationsNames),
+                                          "NOAA Precipitation Station", 
+                                                    NOAAStationsNames),
                                     icon = iconDischargeStation)
   
   if(!is.null(NOAAstationsLongitude) & !is.null(NOAAstationsLatitude)){
