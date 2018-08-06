@@ -114,7 +114,7 @@ getNOAAGuages <- function(siteID,
                     NOAAstationsLatitude = outputValue$latitude,
                     NOAAstationsLongitude = outputValue$longitude,
                     USGSStationName = watershed$name,
-                    NOAAStationsNames = outputValue$name,
+                    NOAAStationsNames = paste(outputValue$id, outputValue$name),
                     watershedMap = leafletmap,
                     zoomFactor = zoomFactor,
                     printMap = is.null(leafletmap)) 
