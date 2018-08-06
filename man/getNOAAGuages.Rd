@@ -18,7 +18,8 @@ getNOAAGuages(siteID, plotmap = TRUE, zoomFactor = 10,
 
 \item{getElevations}{retrieve elevations of datapoints}
 
-\item{leafletmap}{pass a leaflet map arguements}
+\item{leafletmap}{pass a leaflet map arguements, note the output changes to a 
+list if this parameter is invoked}
 }
 \description{
 This function retrieves information on the hydraullic unit code 
