@@ -121,7 +121,7 @@ getNOAAGuages <- function(siteID,
     
   }
   
-  if (is.null(leafletmap)){
+  if (is.null(leafletmap)  & !plotmap){
     return(outputValue)
   } else {
     return(list(output = outputValue, leafletmap = watershedMap))
