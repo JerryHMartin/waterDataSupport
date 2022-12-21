@@ -10,7 +10,7 @@ getUSGSHUC(siteID, plotmap = TRUE, zoomFactor = 10)
 \item{siteID}{the USGS site identified for stream flow analysis}
 }
 \description{
-This function retrieves information on the hydraullic unit code 
+This function retrieves information on the hydraulic unit code 
 given a USGS monitoring station ID.
 }
 \details{

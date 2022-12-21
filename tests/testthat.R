@@ -12,3 +12,4 @@ library(waterDataSupport)
 test_check("waterDataSupport")
 
 testthat::test_file("tests/testthat/test-SiteFunctionsUSGS.R")
+testthat::test_file("tests/testthat/test-Functions_Generic.R")

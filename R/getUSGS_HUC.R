@@ -1,6 +1,6 @@
 #' getUSGSHUC
 #'
-#' This function retrieves information on the hydraullic unit code 
+#' This function retrieves information on the hydraulic unit code 
 #' given a USGS monitoring station ID.
 #' 
 #'

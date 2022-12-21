@@ -4,10 +4,18 @@
 \alias{mapWatershed}
 \title{mapWatershed}
 \usage{
-mapWatershed(watershedPolygon, USGSstationLatitude, USGSstationLongitude,
-  NOAAstationsLatitude = NULL, NOAAstationsLongitude = NULL,
-  USGSStationName = "", NOAAStationsNames = "", watershedMap = NULL,
-  zoomFactor = 10, printMap = FALSE)
+mapWatershed(
+  watershedPolygon,
+  USGSstationLatitude,
+  USGSstationLongitude,
+  NOAAstationsLatitude = NULL,
+  NOAAstationsLongitude = NULL,
+  USGSStationName = "",
+  NOAAStationsNames = "",
+  watershedMap = NULL,
+  zoomFactor = 10,
+  printMap = FALSE
+)
 }
 \arguments{
 \item{watershedPolygon}{a spatialPoints class defining the polygon of the watershed}

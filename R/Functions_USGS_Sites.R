@@ -47,6 +47,3 @@ displaySiteInfo <- function(siteID, HTML = FALSE){
   
   
 }
-
-
-

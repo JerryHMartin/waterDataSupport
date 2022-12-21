@@ -4,8 +4,14 @@
 \alias{getNOAAGuages}
 \title{getNOAAGuages}
 \usage{
-getNOAAGuages(siteID, plotmap = TRUE, zoomFactor = 10,
-  limitToWatershed = TRUE, getElevations = TRUE, leafletmap = NULL)
+getNOAAGuages(
+  siteID,
+  plotmap = TRUE,
+  zoomFactor = 10,
+  limitToWatershed = TRUE,
+  getElevations = TRUE,
+  leafletmap = NULL
+)
 }
 \arguments{
 \item{siteID}{the USGS site identified for stream flow analysis}

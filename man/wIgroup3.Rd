@@ -4,7 +4,8 @@
 \name{wIgroup3}
 \alias{wIgroup3}
 \title{Hydraullic Unit Codes from Watershed Boundary Dataset.}
-\format{A Large SpatialPolygonsDataFrame with 2158 elements:
+\format{
+A Large SpatialPolygonsDataFrame with 2158 elements:
 \describe{
   \item{AREA}{}
   \item{PERIMETER}{}
@@ -17,7 +18,8 @@
   \item{ACC}{}
   \item{CAT}{}
   ...
-}}
+}
+}
 \source{
 \url{https://nhd.usgs.gov/wbd.html}
 }
@@ -39,10 +41,12 @@ USGS website
 # watershedInfo <- spTransform(readOGR(".", "huc250k"), 
 #                              CRS("+proj=longlat +datum=WGS84"))
 
+
 wIgroup1 <- watershedInfo[as.numeric(watershedInfo$REG) <= 6,]
 wIgroup2 <- watershedInfo[as.numeric(watershedInfo$REG) >= 7 &
                             as.numeric(watershedInfo$REG) <= 12 ,]
 wIgroup3 <- watershedInfo[as.numeric(watershedInfo$REG) >= 13,]
+
 
 # save(wIgroup1, file="wIgroup1.RDA")
 # save(wIgroup2, file="wIgroup2.RDA")
