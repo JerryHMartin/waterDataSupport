@@ -1,7 +1,7 @@
 # waterDataSupport
 R package with wrappers for downloading USGS and NOAA data
 
-This package wraps multiple packages in R to perform basic functions with streamflow data from USGS servers.  
+This package wraps multiple packages in R to perform basic functions with streamflow data from servers.  
 
 This package is primarily to supplement processing stream discharge data. It may be expanded to do more later.
 
