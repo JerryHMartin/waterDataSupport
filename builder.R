@@ -1,5 +1,5 @@
 
-#install.packages("devtools")
+#install.packages("devtools", dependencies = TRUE)
 #install.packages("roxygen2")
 
 library(devtools)
