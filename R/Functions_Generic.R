@@ -60,4 +60,28 @@ as.Year <- function(international_date){
 }
 
 
+#' as.geospatial.coordinate wrapper function
+#'
+#'  This function is a wrapper which formats a latitude, longitude pair as a 
+#'  geospatial coordinate.  This is useful if a coordinate is treated as a single 
+#'  parameter
+#'  
+#'  The parameters can be shorted to lat, lon if space is short.
+#' 
+#' @param lat the latitude of a geospatial coordinate
+#' @param lon longitude of a geospatial coordinate
+#' @param elev elevation of a geospatial coordinate
+#' @keywords time
+#' @examples
+#'
+#' as.geospatial.coordinate(lat = 10, lon = 5)
+#' 
+#' @export
+#' 
+#' 
+as.geospatial.coordinate <- function(lat, lon, elev = NA){
+  
+  return(data.frame(latitude = lat, longitude = lon, elevation = elev))
+  
+}
 

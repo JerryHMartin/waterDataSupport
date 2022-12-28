@@ -65,7 +65,8 @@ Get_NOAA_Stations <- function(localSave = FALSE,
 #' @param unique_stations reorganize so output only includes unique stations
 #' @param unique_cols when collapsing to only unique stations, this is the 
 #'  list of which rows to include.
-#' 
+#' @param add_dist_from_coord if set to a coordinate, distance from coord is added 
+#' @param reorder_by_dist TRUE if the stations are reordered by dist from a coord
 #' 
 #' @keywords coordinates
 #' @examples
@@ -90,7 +91,9 @@ Select_NOAA_Stations <- function(localSave = FALSE,
                                  beginYear = NULL,
                                  endYear = NULL,
                                  unique_stations = FALSE,
-                                 unique_cols = NULL){
+                                 unique_cols = NULL,
+                                 add_dist_from_coord = NULL,
+                                 reorder_by_dist = TRUE){
   
   stations <- Get_NOAA_Stations(localSave = localSave,
                                 refresh = refresh,
@@ -130,6 +133,25 @@ Select_NOAA_Stations <- function(localSave = FALSE,
     stations <- unique_stations
     
   } 
+  
+  
+  # add distance from LAT LON
+
+  if (!is.null(add_dist_from_coord)){
+    point <- c(add_dist_from_coord$longitude, add_dist_from_coord$latitude)
+    stations$distance <- 
+      apply(
+        stations[,names(stations) %in% c('latitude', 'longitude')], 1, 
+        function(x){distHaversine(point, c(x['longitude'], x['latitude']))}
+      )
+    
+    if(reorder_by_dist){
+       stations <- stations[order(stations$distance),]  
+    }
+  }
+
+  
+  
   
   
    return(stations)

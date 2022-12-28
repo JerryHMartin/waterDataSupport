@@ -15,6 +15,7 @@
 #' @import waterData
 #' @import xtable
 #' @importFrom rnoaa ghcnd_stations
+#' @importFrom geosphere distHaversine
 #' 
 #' 
 NULL # NULL is required 

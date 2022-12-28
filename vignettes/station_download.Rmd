@@ -31,7 +31,7 @@ The as.International.Date() function has only one input which is a date in
 international format.  International format (YY/mm/dd) is recommended to avoid 
 confusion with other formats.
 
-```{r stations}
+```{r dates}
 
 BEGIN_DATE = as.International.Date("1992/1/1")
 END_DATE = as.International.Date("2022/12/1")
