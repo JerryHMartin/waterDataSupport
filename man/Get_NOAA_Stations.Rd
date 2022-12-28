@@ -30,6 +30,5 @@ stations <- Get_NOAA_Stations(refresh = TRUE)
  
  stations <- Get_NOAA_Stations(localSave = FALSE)
  
-
 }
 \keyword{coordinates}

@@ -102,7 +102,7 @@ Select_NOAA_Stations <- function(localSave = FALSE,
   
   if (unique_stations){
     
-    if (!is.null(unique_cols)){
+    if (is.null(unique_cols)){
       unique_cols <- c('id', 'latitude', 'longitude', 
                        'elevation', 'state', 'name')
     }
