@@ -41,9 +41,20 @@ Get_NOAA_Stations <- function(localSave = FALSE,
 
 #' Select NOAA Stations.
 #'
-#'  This function retrieves the NOAA stations, like Get_NOAA_Stations,
-#'  then selects a group of stations based on certain properties.
+#' This function retrieves the NOAA stations, like Get_NOAA_Stations,
+#' then selects a group of stations based on certain properties.
 #'  
+#' The output dataframe sacrafices robustness for simplicity to make code 
+#' easier to understand.
+#'  
+#'  
+#' If unique_stations is TRUE then the resultant dataframe will have one row
+#' per station.
+#' 
+#' If selectElements parameter has a list of elements, like c('PRCP'), then
+#' the list will be narrowed to only those elements.  If unique is used then
+#' a column for each element will identify if the data is available.  
+#' 
 #' 
 #' @param localSave saves / retrieves information locally
 #' @param refresh forces a refresh of cached station information
@@ -54,7 +65,6 @@ Get_NOAA_Stations <- function(localSave = FALSE,
 #' @param unique_stations reorganize so output only includes unique stations
 #' @param unique_cols when collapsing to only unique stations, this is the 
 #'  list of which rows to include.
-#' @param NOAA_variables collapse stations to only unique stations in list
 #' 
 #' 
 #' @keywords coordinates
@@ -80,8 +90,7 @@ Select_NOAA_Stations <- function(localSave = FALSE,
                                  beginYear = NULL,
                                  endYear = NULL,
                                  unique_stations = FALSE,
-                                 unique_cols = NULL,
-                                 NOAA_variables = c("PRCP")){
+                                 unique_cols = NULL){
   
   stations <- Get_NOAA_Stations(localSave = localSave,
                                 refresh = refresh,
@@ -92,6 +101,7 @@ Select_NOAA_Stations <- function(localSave = FALSE,
     stations <- stations[stations$element %in% selectElements,]
   }
 
+   
   if (!is.null(beginYear)){
     stations <- stations[stations$last_year >= beginYear,]
   }
@@ -111,11 +121,12 @@ Select_NOAA_Stations <- function(localSave = FALSE,
       stations[match(unique(stations$id), stations$id), 
                names(stations) %in% unique_cols])
   
-    for (var_NOAA in NOAA_variables){
-      unique_stations[[var_NOAA]] <- unique_stations$id %in% 
-        stations$id[stations$element == var_NOAA]
+    if (!is.null(selectElements)){
+      for (var_NOAA in selectElements){
+        unique_stations[[var_NOAA]] <- unique_stations$id %in% 
+          stations$id[stations$element == selectElements]
+      }
     }
-    
     stations <- unique_stations
     
   } 
