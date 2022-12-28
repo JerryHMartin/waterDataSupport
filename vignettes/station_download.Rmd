@@ -1,0 +1,55 @@
+---
+title: "station_download"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{station_download}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+The waterDataSupport package is intended to simplify normally complex tasks
+associated with collecting data.
+
+Because the goal of the package is simplicity, it is intended to be less robust
+than the original code on which is is based.
+
+
+```{r setup}
+library(waterDataSupport)
+```
+
+The Select_NOAA_Stations function downloads selected stations from NOAA
+
+
+```{r stations}
+
+BEGIN_DATE = as.International.Date("1992/1/1")
+END_DATE = as.International.Date("2022/12/1")
+VARS_NOAA <- c("PRCP", "TMAX", "TMIN")
+
+stations <- Select_NOAA_Stations(refresh = FALSE,
+                                 selectElements = VARS_NOAA,
+                                 beginYear = as.Year(BEGIN_DATE),
+                                 endYear = as.Year(END_DATE))
+```
+
+
+
+
+
+
+
+
+
+```{r setup}
+
+```

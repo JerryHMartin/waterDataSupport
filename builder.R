@@ -58,3 +58,6 @@ devtools::check()
 
 testthat::test_file("tests/testthat/test-SiteFunctionsUSGS.R")
 
+usethis::use_vignette("station_download")
+
+
