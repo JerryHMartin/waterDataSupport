@@ -5,12 +5,15 @@
 \title{Select NOAA Stations.}
 \usage{
 Select_NOAA_Stations(
-  localSave = TRUE,
+  localSave = FALSE,
   refresh = FALSE,
   localFileName = "stations.Rdata",
   selectElements = NULL,
   beginYear = NULL,
-  endYear = NULL
+  endYear = NULL,
+  unique_stations = FALSE,
+  unique_cols = NULL,
+  NOAA_variables = c("PRCP")
 )
 }
 \arguments{
@@ -25,6 +28,13 @@ Select_NOAA_Stations(
 \item{beginYear}{the earliest year of data collection}
 
 \item{endYear}{the last year of data collection}
+
+\item{unique_stations}{reorganize so output only includes unique stations}
+
+\item{unique_cols}{when collapsing to only unique stations, this is the 
+list of which rows to include.}
+
+\item{NOAA_variables}{collapse stations to only unique stations in list}
 }
 \description{
 This function retrieves the NOAA stations, like Get_NOAA_Stations,

@@ -36,6 +36,8 @@ devtools::check()
 
 testthat::test_file("tests/testthat/test-SiteFunctionsUSGS.R")
 
+testthat::test_file("tests/testthat/test-Functions_NOAA_Stations.R")
+
 usethis::use_vignette("station_download")
 
 

@@ -5,7 +5,7 @@
 \title{Get NOAA Stations.}
 \usage{
 Get_NOAA_Stations(
-  localSave = TRUE,
+  localSave = FALSE,
   refresh = FALSE,
   localFileName = "stations.Rdata"
 )
