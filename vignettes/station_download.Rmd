@@ -56,8 +56,18 @@ stations <- Select_NOAA_Stations(refresh = FALSE,
                                  endYear = as.Year(END_DATE))
 ```
 
+```{r unique_stations}
 
 
+VARS_NOAA <- c("PRCP", "TMAX", "TMIN")
+
+stations <- Select_NOAA_Stations(refresh = FALSE,
+                                 selectElements = VARS_NOAA,
+                                 beginYear = as.Year(BEGIN_DATE),
+                                 endYear = as.Year(END_DATE),
+                                 unique_stations = TRUE)
+
+```
 
 
 
