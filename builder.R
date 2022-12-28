@@ -1,5 +1,5 @@
 
-#install.packages("devtools")
+#install.packages("devtools", dependencies = TRUE)
 #install.packages("roxygen2")
 
 library(devtools)
@@ -15,28 +15,6 @@ devtools::create("waterDataSupport")
 
 
 
-
-# devtools::use_package("waterData")
-# devtools::use_package("gridExtra")
-# devtools::use_package("grid")
-# devtools::use_package("xtable")
-# devtools::use_package("sp")
-# devtools::use_package("maps")
-# devtools::use_package("mapdata")
-# devtools::use_package("maptools")
-# devtools::use_package("ggmap")
-# devtools::use_package("dataRetrieval")
-# devtools::use_package("rgdal")
-# devtools::use_package("leaflet")
-# devtools::use_package("raster")
-# devtools::use_package("rnoaa")
-# devtools::use_package("geosphere")
-# devtools::use_package("elevatr")
-
-
-
-
-roxygen2::roxygenise()
 
 
 
