@@ -142,7 +142,8 @@ Select_NOAA_Stations <- function(localSave = FALSE,
 
   if (!is.null(add_dist_from_coord)){
     
-    coord <- within (add_dist_from_coord,c(longitude, latitude))
+    coord <- c(add_dist_from_coord$longitude, 
+               add_dist_from_coord$latitude)
     
     
     stations$distance_m <- 
