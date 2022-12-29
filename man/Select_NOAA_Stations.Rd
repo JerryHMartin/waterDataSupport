@@ -12,7 +12,9 @@ Select_NOAA_Stations(
   beginYear = NULL,
   endYear = NULL,
   unique_stations = FALSE,
-  unique_cols = NULL
+  unique_cols = NULL,
+  add_dist_from_coord = NULL,
+  reorder_by_dist = TRUE
 )
 }
 \arguments{
@@ -34,6 +36,8 @@ Select_NOAA_Stations(
 list of which rows to include.}
 
 \item{add_dist_from_coord}{if set to a coordinate, distance from coord is added}
+
+\item{reorder_by_dist}{TRUE if the stations are reordered by dist from a coord}
 }
 \description{
 This function retrieves the NOAA stations, like Get_NOAA_Stations,

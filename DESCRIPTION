@@ -1,18 +1,18 @@
 Package: waterDataSupport
 Type: Package
 Title: Additional Functions for waterData
-Version: 0.1.1
+Version: 0.2.0
 Author: Jerry Martin
 Maintainer: Jerry Martin <jerry.h.martin@gmail.com>
 Description: This package is intended to provide supporting 
     functions for hydrologic modeling.
     This package is intended for information only.
-License: GPL ver 2
+License: CC0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
-Imports: dataRetrieval, ggmap, grid, gridExtra, leaflet, mapdata, maps,
-    maptools, raster, rgdal, rnoaa, sp, waterData, xtable
+Imports: dataRetrieval, geosphere, ggmap, grid, gridExtra, leaflet, 
+    mapdata, maps, maptools, raster, rgdal, rnoaa, sp, waterData, xtable
 Suggests: 
     knitr,
     rmarkdown,

@@ -95,13 +95,17 @@ Select_NOAA_Stations <- function(localSave = FALSE,
                                  add_dist_from_coord = NULL,
                                  reorder_by_dist = TRUE){
   
+  DEFAULT_UNIQUE_COLUMNS <- 
+    c('id', 'latitude', 'longitude', 'elevation', 'state', 'name')
+  
+  
   stations <- Get_NOAA_Stations(localSave = localSave,
                                 refresh = refresh,
                                 localFileName = localFileName)
   
   # limit to specific NOAA variables
   if (!is.null(selectElements)){
-    stations <- stations[stations$element %in% selectElements,]
+    stations <- stations[is.element(stations$element,selectElements),]
   }
 
    
@@ -115,14 +119,12 @@ Select_NOAA_Stations <- function(localSave = FALSE,
   
   if (unique_stations){
     
-    if (is.null(unique_cols)){
-      unique_cols <- c('id', 'latitude', 'longitude', 
-                       'elevation', 'state', 'name')
-    }
+    if (is.null(unique_cols)){unique_cols <- DEFAULT_UNIQUE_COLUMNS}
 
     unique_stations <- as.data.frame(
       stations[match(unique(stations$id), stations$id), 
                names(stations) %in% unique_cols])
+    
   
     if (!is.null(selectElements)){
       for (var_NOAA in selectElements){
@@ -138,11 +140,14 @@ Select_NOAA_Stations <- function(localSave = FALSE,
   # add distance from LAT LON
 
   if (!is.null(add_dist_from_coord)){
-    point <- c(add_dist_from_coord$longitude, add_dist_from_coord$latitude)
-    stations$distance <- 
+    
+    coord <- within (add_dist_from_coord,c(longitude, latitude))
+    
+    
+    stations$distance_m <- 
       apply(
-        stations[,names(stations) %in% c('latitude', 'longitude')], 1, 
-        function(x){distHaversine(point, c(x['longitude'], x['latitude']))}
+        stations[,is.element(names(stations),c('latitude', 'longitude'))], 1, 
+        function(x){distHaversine(coord, c(x['longitude'], x['latitude']))}
       )
     
     if(reorder_by_dist){
@@ -150,10 +155,6 @@ Select_NOAA_Stations <- function(localSave = FALSE,
     }
   }
 
-  
-  
-  
-  
    return(stations)
 }
 

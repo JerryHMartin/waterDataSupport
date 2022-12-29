@@ -4,12 +4,14 @@
 \alias{as.geospatial.coordinate}
 \title{as.geospatial.coordinate wrapper function}
 \usage{
-as.geospatial.coordinate(latitude, longitude, elevation, ...)
+as.geospatial.coordinate(lat, lon, elev = NA)
 }
 \arguments{
-\item{latitude}{the latitude of a geospatial coordinate}
+\item{lat}{the latitude of a geospatial coordinate}
 
-\item{longitude}{of a geospatial coordinate}
+\item{lon}{longitude of a geospatial coordinate}
+
+\item{elev}{elevation of a geospatial coordinate}
 }
 \description{
 This function is a wrapper which formats a latitude, longitude pair as a 
