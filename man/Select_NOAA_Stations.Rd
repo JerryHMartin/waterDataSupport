@@ -43,7 +43,7 @@ list of which rows to include.}
 This function retrieves the NOAA stations, like Get_NOAA_Stations,
 then selects a group of stations based on certain properties.
  
-The output dataframe sacrafices robustness for simplicity to make code 
+The output dataframe sacrifices robustness for simplicity to make code 
 easier to understand.
  
  

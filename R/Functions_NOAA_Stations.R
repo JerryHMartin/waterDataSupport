@@ -44,7 +44,7 @@ Get_NOAA_Stations <- function(localSave = FALSE,
 #' This function retrieves the NOAA stations, like Get_NOAA_Stations,
 #' then selects a group of stations based on certain properties.
 #'  
-#' The output dataframe sacrafices robustness for simplicity to make code 
+#' The output dataframe sacrifices robustness for simplicity to make code 
 #' easier to understand.
 #'  
 #'  
@@ -105,7 +105,7 @@ Select_NOAA_Stations <- function(localSave = FALSE,
   
   # limit to specific NOAA variables
   if (!is.null(selectElements)){
-    stations <- stations[is.element(stations$element,selectElements),]
+    stations <- stations[is.element(stations$element, selectElements),]
   }
 
    
@@ -159,5 +159,43 @@ Select_NOAA_Stations <- function(localSave = FALSE,
 
    return(stations)
 }
+
+
+#' Get Data from NOAA Station.
+#'
+#' This is a wrapper for the ghcnd_search() function from the rnoaa package
+#' 
+#' @param station_id the ID of the station to download data
+#' @param var which elements (variables) to get from the station
+#' @param refresh whether or not to refresh data for the station 
+#' 
+#' @keywords NOAA stations
+#' @examples
+#'
+#' If NOAA stations have not been downloaded in a while be sure to refresh
+#' 
+#' @export Get_Data_from_NOAA_Station
+
+Get_Data_from_NOAA_Station <- function(station_id = NULL,
+                                       var = NULL,
+                                       date_min = NULL,
+                                       date_max = NULL,
+                                       refresh = FALSE, ...){
+  
+  
+  rawData <- ghcnd_search(stationid = station_id, 
+                          var = var, 
+                          date_min = date_min,
+                          date_max = date_max,
+                          refresh = refresh, ...)
+  
+  sapply(var, function(x){rawData[[var]]})
+  
+  
+  
+  
+  
+}
+
 
 
