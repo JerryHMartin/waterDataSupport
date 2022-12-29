@@ -128,8 +128,9 @@ Select_NOAA_Stations <- function(localSave = FALSE,
   
     if (!is.null(selectElements)){
       for (var_NOAA in selectElements){
-        unique_stations[[var_NOAA]] <- unique_stations$id %in% 
-          stations$id[stations$element == selectElements]
+        unique_stations[[var_NOAA]] <- 
+          is.element(unique_stations$id, 
+          stations$id[stations$element == var_NOAA])
       }
     }
     stations <- unique_stations
