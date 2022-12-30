@@ -1,15 +1,13 @@
 # waterDataSupport
-R package with wrappers for downloading USGS and NOAA data
+R package for downloading USGS and NOAA stream flow and precipitation data, which sacrifices robustness of the packages normally used for downloading for simplicity. 
 
-This package wraps multiple packages in R to perform basic functions with streamflow data from servers.  
-
-This package is primarily to supplement processing stream discharge data. It may be expanded to do more later.
-
-This package borrows heavily from other sources including:
+## Purpose
+This package, which contains mostly wrapper functions, borrows heavily from other sources including:
 
 * vignettes associated with the waterData package.
 * USGS information on the the dataRetrieval package
 * leaflet for making plots
+* rnoaa for precipitaiton data
 
 ### Installing waterDataSupport
 
@@ -31,6 +29,10 @@ After the library is installed it is to be loaded.
 
 ### Available Functions
 
+
+
+
+
 #### displaySiteInfo(siteID)
 
 This function displays information about a particular USGS site.
@@ -41,7 +43,7 @@ This function locates a site on Google Maps.
 
 #### displaySiteLocationInState(siteID)
 
-This function draws a map of a site in the state which it is loacted. 
+This function draws a map of a site in the state which it is located. 
 
 #### ExportDailyValuesToCSV(dailyValues, fileName, metric = TRUE)
 

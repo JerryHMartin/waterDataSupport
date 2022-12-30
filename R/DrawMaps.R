@@ -1,5 +1,3 @@
-
-
 #' displaySiteLocation
 #'
 #' This function displays the output of the stationInfo function in

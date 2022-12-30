@@ -1,0 +1,79 @@
+---
+title: "station_download"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{station_download}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r init, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+The waterDataSupport package is intended to simplify normally complex tasks
+associated with collecting data.
+
+Because the goal of the package is simplicity, it is intended to be less robust
+than the original code on which it is based.
+
+
+```{r setup}
+library(waterDataSupport)
+```
+
+The as.International.Date() function has only one input which is a date in 
+international format.  International format (YY/mm/dd) is recommended to avoid 
+confusion with other formats.
+
+```{r dates}
+
+BEGIN_DATE = as.International.Date("1992/1/1")
+END_DATE = as.International.Date("2022/12/1")
+
+
+```
+
+
+The Select_NOAA_Stations function downloads selected stations from NOAA
+
+If a message concerning cached files show up, check the date to ensure it is 
+recent.
+
+```{r stations}
+
+
+VARS_NOAA <- c("PRCP", "TMAX", "TMIN")
+
+stations1 <- Select_NOAA_Stations(refresh = FALSE,
+                                 selectElements = VARS_NOAA,
+                                 beginYear = as.Year(BEGIN_DATE),
+                                 endYear = as.Year(END_DATE))
+```
+
+```{r unique_stations}
+
+VARS_NOAA <- c("PRCP", "TMAX", "TMIN")
+
+stations2 <- Select_NOAA_Stations(
+  refresh = FALSE,
+  selectElements = VARS_NOAA,
+  beginYear = as.Year(BEGIN_DATE),
+  endYear = as.Year(END_DATE),
+  unique_stations = TRUE
+)
+
+
+
+
+```
+
+
+
+
+

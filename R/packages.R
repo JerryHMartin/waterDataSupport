@@ -1,4 +1,5 @@
 # Used by Roxygen
+
 #' @import dataRetrieval
 #' @import ggmap
 #' @import grid
@@ -9,9 +10,13 @@
 #' @import maptools
 #' @import raster
 #' @import rgdal
-#' @import rnoaa 
+# @import rnoaa 
 #' @import sp
 #' @import waterData
 #' @import xtable
-
+#' @importFrom rnoaa ghcnd_stations
+#' @importFrom rnoaa ghcnd_search
+#' @importFrom geosphere distHaversine
+#' 
+#' 
 NULL # NULL is required 

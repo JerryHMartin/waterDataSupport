@@ -5,12 +5,16 @@
 \title{Select NOAA Stations.}
 \usage{
 Select_NOAA_Stations(
-  localSave = TRUE,
+  localSave = FALSE,
   refresh = FALSE,
   localFileName = "stations.Rdata",
   selectElements = NULL,
   beginYear = NULL,
-  endYear = NULL
+  endYear = NULL,
+  unique_stations = FALSE,
+  unique_cols = NULL,
+  add_dist_from_coord = NULL,
+  reorder_by_dist = TRUE
 )
 }
 \arguments{
@@ -25,10 +29,31 @@ Select_NOAA_Stations(
 \item{beginYear}{the earliest year of data collection}
 
 \item{endYear}{the last year of data collection}
+
+\item{unique_stations}{reorganize so output only includes unique stations}
+
+\item{unique_cols}{when collapsing to only unique stations, this is the 
+list of which rows to include.}
+
+\item{add_dist_from_coord}{if set to a coordinate, distance from coord is added}
+
+\item{reorder_by_dist}{TRUE if the stations are reordered by dist from a coord}
 }
 \description{
 This function retrieves the NOAA stations, like Get_NOAA_Stations,
- then selects a group of stations based on certain properties.
+then selects a group of stations based on certain properties.
+ 
+The output dataframe sacrifices robustness for simplicity to make code 
+easier to understand.
+ 
+ 
+If unique_stations is TRUE then the resultant dataframe will have one row
+per station.
+}
+\details{
+If selectElements parameter has a list of elements, like c('PRCP'), then
+the list will be narrowed to only those elements.  If unique is used then
+a column for each element will identify if the data is available.
 }
 \examples{
 

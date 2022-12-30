@@ -5,7 +5,7 @@
 \title{Get NOAA Stations.}
 \usage{
 Get_NOAA_Stations(
-  localSave = TRUE,
+  localSave = FALSE,
   refresh = FALSE,
   localFileName = "stations.Rdata"
 )
@@ -30,6 +30,5 @@ stations <- Get_NOAA_Stations(refresh = TRUE)
  
  stations <- Get_NOAA_Stations(localSave = FALSE)
  
-
 }
 \keyword{coordinates}
