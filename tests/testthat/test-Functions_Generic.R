@@ -14,6 +14,20 @@ test_that("Tests displaySiteInfo", {
   expect_equal(as.geospatial.coordinate(lat = 10, lon = 5, elev = 0)$elevation,
                0)
   
+  df <- list(
+     fun = function(x){sum(x)},
+     fun1 = function(x){mean(x)},
+     fun2 = function(x){sd(x)} 
+  )
+  
+  df$fun <- remove_attribute(df$fun)
+  expect_null(attr(df$fun))
+  
+  df <- lapply(df, remove_attribute)
+  
+  expect_null(attr(df$fun1))
+  expect_null(attr(df$fun2))
+  
 })
 
 
