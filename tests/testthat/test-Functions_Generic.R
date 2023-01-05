@@ -20,13 +20,13 @@ test_that("Tests displaySiteInfo", {
      fun2 = function(x){sd(x)} 
   )
   
-  df$fun <- remove_attribute(df$fun)
-  expect_null(attr(df$fun))
+  df$fun <- remove_attributes(df$fun)
+  expect_null(attributes(df$fun))
   
-  df <- lapply(df, remove_attribute)
+  df <- lapply(df, remove_attributes)
   
-  expect_null(attr(df$fun1))
-  expect_null(attr(df$fun2))
+  expect_null(attributes(df$fun1))
+  expect_null(attributes(df$fun2))
   
 })
 

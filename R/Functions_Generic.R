@@ -85,7 +85,7 @@ as.geospatial.coordinate <- function(lat, lon, elev = NA){
   
 }
 
-#' remove_attribute
+#' remove_attributes
 #'
 #'  This function clears attributes
 #'  
@@ -101,13 +101,13 @@ as.geospatial.coordinate <- function(lat, lon, elev = NA){
 #'   fun2 = function(x){sd(x)} 
 #' )
 #'
-#' df$fun <- remove_attribute(df$fun)
+#' df$fun <- remove_attributes(df$fun)
 #'
-#' df <- lapply(df, remove_attribute)
+#' df <- lapply(df, remove_attributes)
 #'
 #' 
 #' @export
 #' 
 #' 
-remove_attribute <- function(x) {attributes(x) <- NULL; return(x)}
+remove_attributes <- function(x) {attributes(x) <- NULL; return(x)}
 
