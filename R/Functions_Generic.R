@@ -85,3 +85,29 @@ as.geospatial.coordinate <- function(lat, lon, elev = NA){
   
 }
 
+#' remove_attribute
+#'
+#'  This function clears attributes
+#'  
+#'  The parameters can be shorted to lat, lon if space is short.
+#' 
+#' @param x the variable which to remove the attributes
+#' @keywords attr attributes
+#' @examples
+#'
+#' df <- list(
+#'   fun = function(x){sum(x)},
+#'   fun1 = function(x){mean(x)},
+#'   fun2 = function(x){sd(x)} 
+#' )
+#'
+#' df$fun <- remove_attribute(df$fun)
+#'
+#' df <- lapply(df, remove_attribute)
+#'
+#' 
+#' @export
+#' 
+#' 
+remove_attribute <- function(x) {attributes(x) <- NULL; return(x)}
+

@@ -1,0 +1,227 @@
+---
+title: "Continous Precipitation Dowload for a Point"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute 
+code within the notebook, the results appear beneath the code. 
+
+Execute this chunk by clicking the *Run* button within the chunk or by placing 
+your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+This particular code is for downloading continuous precipitation data from the
+NOAA servers for a single point.  
+
+This code downloads all the stations, ranks the stations by distance from the 
+point, then fills in data until the data is complete.
+
+### Variables
+
+PRCP = Precipitation (tenths of mm)
+AWND - Average Wind (tenths of meters per second)
+TMAX = Maximum temperature (tenths of degrees C)
+TMIN = Minimum temperature (tenths of degrees C)
+AWND = Average daily wind speed (tenths of meters per second)
+WSF1 = Fastest 1-minute wind speed (tenths of meters per second)
+WSF2 = Fastest 2-minute wind speed (tenths of meters per second)
+WSF5 = Fastest 5-second wind speed (tenths of meters per second)
+WSFG = Peak gust wind speed (tenths of meters per second)
+WSFI = Highest instantaneous wind speed (tenths of meters per second)
+
+Temperature is stored in tenths of a degree.
+Precipitation is in tenths of millimeters. 
+
+
+### Set initial Parameters
+
+```{r Declare Constants, echo = TRUE, warning=FALSE}
+
+library(waterDataSupport)
+
+PARAMS = list(
+  LATITUDE =  Convert_DMS_to_Decimal('34 44 42.9'),
+  LONGITUDE = Convert_DMS_to_Decimal('-78 49 30.4'),
+  BEGIN_DATE = as.International.Date("1992/1/1"),
+  END_DATE = as.International.Date("2022/12/1"),
+  VARS_NOAA = c("PRCP", "TMAX", "TMIN", "AWND"),
+  REFRESH_DATA = FALSE # Change to true if cached data needs updating
+)
+
+```
+
+### Compute Derived Parameters
+
+```{r Compute Derived Parameters, echo = TRUE, warning=FALSE}
+
+PARAMS$DERIVED$GEOSPATIAL_LOCATION = as.geospatial.coordinate(
+  lat = PARAMS$LATITUDE, 
+  lon = PARAMS$LONGITUDE 
+)
+PARAMS$DERIVED$BEGIN_YEAR <- as.Year(PARAMS$BEGIN_DATE)
+PARAMS$DERIVED$END_YEAR <- as.Year(PARAMS$END_DATE)
+PARAMS$DERIVED$DATE_SEQUENCE <- seq(PARAMS$BEGIN_DATE, 
+                                    PARAMS$END_DATE, 
+                                    by = "days")
+
+```
+
+#### Get All NOAA Station Metadata and Distances
+
+```{r LoadAllStationData, echo=FALSE, warning=FALSE}
+
+stations <- Select_NOAA_Stations(
+  refresh = PARAMS$REFRESH_DATA,
+  selectElements = PARAMS$VARS_NOAA,
+  beginYear = PARAMS$DERIVED$BEGIN_YEAR,
+  endYear = PARAMS$DERIVED$END_YEAR,
+  unique_stations = TRUE,
+  add_dist_from_coord = PARAMS$DERIVED$GEOSPATIAL_LOCATION
+)
+
+
+```
+
+
+### Processing
+
+```{r Processing, echo=FALSE, warning=FALSE, error=FALSE}
+
+SUFFIXES = list(
+  COMPOSITE = list(
+    VALUE = "_composite_value",
+    ID = "_composite_station_id",
+    DISTANCE = "_composite_station_dist"
+  )
+)
+
+SUFFIXES$functions$val <- function(i){paste0(i, SUFFIXES$COMPOSITE$VALUE)}
+SUFFIXES$functions$id <- function(i){paste0(i, SUFFIXES$COMPOSITE$ID)}
+SUFFIXES$functions$dist <- function(i){paste0(i, SUFFIXES$COMPOSITE$DISTANCE)}  
+
+# remove unneeded attributes from functions
+SUFFIXES$functions = lapply(SUFFIXES$functions, 
+                            function(x) {attributes(x) <- NULL; x})
+
+
+# Initialize blank data frame for observations
+observations <- data.frame(dates = PARAMS$DERIVED$DATE_SEQUENCE)
+
+
+# add composite values to data frame
+invisible(sapply(PARAMS$VARS_NOAA , function(i){
+  observations[SUFFIXES$functions$val(i)] <<- NA
+  observations[SUFFIXES$functions$id(i)] <<- NA
+  observations[SUFFIXES$functions$dist] <<- NA 
+}))
+  
+
+# define function to test for data gaps
+gaps_are_present <- function(){
+  any(sapply(VARS_NOAA, function(x){is.na(observations[val_suffix(x)])}))
+} 
+
+
+# loop through stations until all points are filled
+station_index <- 0
+while (gaps_are_present()){
+  
+  station_index <- station_index + 1 
+  station_id <- stations$id[station_index]
+  station_dist <- stations$distance[station_index]
+
+  available_VARS_NOAA <- 
+    VARS_NOAA[sapply(VARS_NOAA, function(x){stations[[x]][station_index]})]
+  
+  #try({# attempt to download data from server
+  rawData <- Get_Data_from_NOAA_Station(station_id = station_id,
+                                        var = available_VARS_NOAA, 
+                                        refresh = TRUE)
+  #})  
+  
+  # = observations$dates
+  for (i in VARS_NOAA){
+    try({
+      i_low <- tolower(i)
+      obv_value <- paste0(i, "_value")
+      obv_station_id <- paste0(i, "_station_id")
+      obv_station_dist <- paste0(i, "_station_dist")
+      gap_dates <- observations$dates[is.na(observations[obv_value])]
+      
+      # get station observations
+      st_obs <- data.frame(
+        date = as.list(rawData[[i_low]]["date"]), 
+        value = as.list(rawData[[i_low]][i_low])
+      )
+      st_obs <- st_obs[!is.na(st_obs[i_low]),] # delete NAs
+
+      available_dates <- gap_dates[gap_dates %in% st_obs$date]
+      
+      # add available dates into observation data set
+      for (x in available_dates){
+        obs_index <- match(x, observations$dates)
+        st_obs_index <- match(x, st_obs$date)
+        col_index <- match(obv_value, names(observations))
+        observations[obs_index, col_index ] <- st_obs[st_obs_index, 2]
+        observations[obs_index, col_index + 1] <- station_id
+        observations[obs_index, col_index + 2] <- station_dist
+      }
+    })
+  }
+}
+
+
+
+# load relevant software packages
+
+
+
+#library(rnoaa)    # Accesses NOAA data
+#library(sp)       # Spatial data package
+#library(padr)     # pads data
+#library(geosphere)# used to get distance between lat, lon points
+#library(parallel) # Enables parallel processing
+
+
+```
+
+### Map
+
+```{r map, echo=FALSE, warning=FALSE}
+
+# loading the required packages
+library(ggplot2)
+library(ggmap)
+
+# creating a sample data.frame with your lat/lon points
+lon <- c(-38.31,-35.5)
+lat <- c(40.96, 37.5)
+df <- as.data.frame(cbind(lon,lat))
+
+# getting the map
+mapgilbert <- get_map(location = c(lon = LON, lat = LAT), zoom = 4,
+                      maptype = "satellite", scale = 2)
+
+# plotting the map with some points on it
+ggmap(mapgilbert) +
+  geom_point(data = df, 
+             aes(x = lon, y = lat, fill = "red", alpha = 0.8), 
+             size = 5, 
+             shape = 21) +
+  guides(fill=FALSE, alpha=FALSE, size=FALSE)
+
+
+
+```
+
+### Export
+
+```{r Export, echo=FALSE, warning=FALSE}
+
+
+
+write.csv(observations,
+          paste0("gap_free_observations_at_", LON, ",", LAT, ".csv"), 
+          row.names = FALSE)
+
+
+```
