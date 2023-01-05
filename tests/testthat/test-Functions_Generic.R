@@ -28,6 +28,12 @@ test_that("Tests displaySiteInfo", {
   expect_null(attributes(df$fun1))
   expect_null(attributes(df$fun2))
   
+  
+  expect_false(gaps_present(c(1,2,3)))
+  expect_true(gaps_present(c(1,2,NA)))
+  
+  
+  
 })
 
 

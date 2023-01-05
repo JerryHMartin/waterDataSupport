@@ -111,3 +111,23 @@ as.geospatial.coordinate <- function(lat, lon, elev = NA){
 #' 
 remove_attributes <- function(x) {attributes(x) <- NULL; return(x)}
 
+#' gaps_present
+#'
+#'  This function checks the data for gaps
+#' 
+#' @param x the data to check for gaps
+#' @keywords data gaps
+#' @examples
+#'
+#'  gaps_present(c(1,2,3))
+#'  gaps_present(c(1,2,NA))
+#' 
+#' @export
+#' 
+#' 
+gaps_present <- function(x) {
+  return(any(is.na(x))|any(is.nan(x)) )
+}
+
+
+
